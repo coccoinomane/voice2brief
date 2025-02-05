@@ -91,7 +91,7 @@ class AudioProcessor:
         if model.startswith("claude"):
             response = self.anthropic.messages.create(
                 model=model,
-                max_tokens=1000,
+                max_tokens=10000,
                 messages=[{
                     "role": "user",
                     "content": prompt.format(text=text)

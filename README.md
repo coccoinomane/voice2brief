@@ -10,8 +10,10 @@ This tool helps you transform audio recordings (like iOS Voice Memos) into well-
 - **Two Processing Modes**:
   - **Brief Generation**: Turn voice memos about tasks into clear team briefs with assignments
   - **Meeting Notes**: Convert recorded meetings into structured notes with action items
-- **Multiple LLM Support**: Compatible with OpenAI's GPT and Anthropic's Claude
+- **Language Detection**: Automatically detect the language of the transcription
+- **Structured output**: Output uses sections and bullet points thanks to markdown formatting
 - **Flexible Output**: Display results in console or save to file
+- **Multiple LLM Support**: Compatible with OpenAI's GPT and Anthropic's Claude
 
 ## Installation
 
