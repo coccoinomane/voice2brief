@@ -1,3 +1,0 @@
-# Keep directory but ignore contents
-*
-!.gitignore

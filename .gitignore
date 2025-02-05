@@ -120,3 +120,5 @@ pypi-*/
 .vscode/settings.json
 .DS_Store
 *.sqlite
+brief
+audio
