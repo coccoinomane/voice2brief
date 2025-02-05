@@ -168,6 +168,50 @@ class AudioProcessor:
             "content": content
         }
 
+    def generate_extended(self, text: str, model: str = "gpt-4") -> dict:
+        """Transform transcribed text into a polished, comprehensive document."""
+        prompt = """
+        Based on the following transcribed audio, create a clear, well-structured text
+        that preserves the speaker's intent and message. This should read as a proper
+        document rather than a transcript.
+        
+        Generate the response in the same language as the transcription.
+        
+        Guidelines:
+        1. Maintain the original message and key points
+        2. Improve clarity and flow
+        3. Fix any verbal artifacts or repetitions
+        4. Organize the content logically
+        5. Keep the speaker's tone and style
+        
+        Transcription:
+        {text}
+        """
+        
+        if model.startswith("claude"):
+            response = self.anthropic.messages.create(
+                model=model,
+                max_tokens=10000,
+                messages=[{
+                    "role": "user",
+                    "content": prompt.format(text=text)
+                }]
+            )
+            content = response.content[0].text
+        else:
+            response = openai.chat.completions.create(
+                model=model,
+                messages=[
+                    {"role": "user", "content": prompt.format(text=text)}
+                ]
+            )
+            content = response.choices[0].message.content
+            
+        return {
+            "type": "extended",
+            "content": content
+        }
+
 def parse_arguments():
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(description='Process audio files and generate briefs or meeting notes.')
@@ -175,9 +219,9 @@ def parse_arguments():
     parser.add_argument('audio_file', type=str, help='Path to the audio file')
     
     parser.add_argument('--mode', type=str, 
-                       choices=['brief', 'meeting_notes'],
+                       choices=['brief', 'meeting_notes', 'extended'],
                        default='brief',
-                       help='Processing mode: brief or meeting_notes')
+                       help='Processing mode: brief, meeting_notes, or extended')
     
     parser.add_argument('--model', type=str,
                        default='chatgpt-4o-latest',
@@ -219,8 +263,10 @@ def main():
         
         if args.mode == "brief":
             result = processor.generate_brief(transcription, args.model)
-        else:
+        elif args.mode == "meeting_notes":
             result = processor.generate_meeting_notes(transcription, args.model)
+        else:  # extended mode
+            result = processor.generate_extended(transcription, args.model)
         
         # Handle output
         if args.output:
