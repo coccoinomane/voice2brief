@@ -1,4 +1,4 @@
-# Voice to Brief
+# Voice2Brief
 
 Convert voice memos into actionable briefs and meeting notes using AI transcription and processing.
 
