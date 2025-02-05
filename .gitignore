@@ -122,3 +122,5 @@ pypi-*/
 *.sqlite
 brief
 audio
+.pdm-build
+.ruff_cache

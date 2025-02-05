@@ -1,0 +1,11 @@
+voice2brief/
+├── src/
+│   └── voice2brief/
+│       ├── __init__.py
+│       └── processor.py  # renamed from voice2brief.py
+├── tests/
+│   └── __init__.py
+├── .gitignore
+├── README.md
+├── pyproject.toml
+└── .pre-commit-config.yaml 

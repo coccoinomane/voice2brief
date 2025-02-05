@@ -1,0 +1,64 @@
+[project]
+name = "voice2brief"
+version = "0.1.0"
+description = "Convert voice memos into actionable briefs and meeting notes using AI"
+authors = [{ name = "coccoinomane", email = "coccoinomane@gmail.com" }]
+dependencies = [
+    "openai>=1.61.1",
+    "anthropic>=0.45.2",
+    "pydub>=0.25.1",
+    "audioop-lts>=0.2.1"
+]
+requires-python = ">=3.13"
+readme = "README.md"
+license = { text = "MIT" }
+
+[project.urls]
+homepage = "https://github.com/coccoinomane/voice2brief"
+repository = "https://github.com/coccoinomane/voice2brief"
+
+[dependency-groups]
+dev = [
+    "ruff>=0.9.4",
+    "mypy>=1.15.0",
+    "pytest>=8.3.4",
+    "pre-commit>=4.1.0",
+]
+
+[project.scripts]
+voice2brief = "voice2brief.cli:main"
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.setuptools.package-data]
+"voice2brief" = ["py.typed"]
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.scripts]
+ruff = {shell = "ruff check && ruff format"}
+voice2brief = {cmd = "voice2brief", help = "Run the CLI in dev mode"}
+release = "gh release create v{args} dist/voice2brief-{args}.tar.gz dist/voice2brief-{args}-py3-none-any.whl --generate-notes"
+
+[tool.mypy]
+python_version = "3.13"
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+no_implicit_optional = true
+show_error_codes = true
+strict_equality = true
+strict_optional = false
+warn_redundant_casts = true
+warn_unused_configs = true
+warn_unused_ignores = true
+disallow_any_unimported = false
+disallow_untyped_calls = false
+exclude = [
+    '__pypackages__',
+]

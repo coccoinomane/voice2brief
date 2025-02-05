@@ -18,29 +18,34 @@ This tool helps you transform audio recordings (like iOS Voice Memos) into well-
 
 ## Installation
 
-1. Clone the repository:
+The easiest way to install voice2brief is using pip
 ```bash
-git clone https://github.com/coccoinomane/voice2brief.git
-cd voice2brief
+pip install voice2brief
+```
+or using pipx:
+```bash
+pipx install voice2brief
+```
+If you use pip, it is recommended to use a virtual environment.
+
+Then, make sure to set your API keys in your environment.  On Linux or MacOS:
+```bash
+export OPENAI_API_KEY=your-openai-api-key
+export ANTHROPIC_API_KEY=your-anthropic-api-key
+```
+On Windows (PowerShell):
+```powershell
+setx OPENAI_API_KEY "your-openai-api-key"
+setx ANTHROPIC_API_KEY "your-anthropic-api-key"
 ```
 
-2. Install required packages:
-```bash
-pip install -r requirements.txt
-```
-
-3. Copy the `.env.example` file to `.env` and add your API keys:
-```bash
-OPENAI_API_KEY=your-openai-api-key
-# Optional, only needed for Claude
-ANTHROPIC_API_KEY=your-anthropic-api-key
-```
+Please note the Anthropic API key is optional and only needed to use the Claude models.
 
 ## Usage
 
 Basic usage:
 ```bash
-python voice2brief.py path/to/audio.m4a
+voice2brief path/to/audio.m4a
 ```
 
 Command Line Arguments:
@@ -49,22 +54,22 @@ Command Line Arguments:
   - `brief`: Generate a team brief with assignments
   - `meeting_notes`: Generate meeting notes with action items
   - `extended`: Create a polished document from the voice memo
-- `--model`: LLM model to use (default: gpt-4o-latest)
+- `--model`: LLM model to use (default: chatgpt-4o-latest)
 - `--output`: Output file path (optional, defaults to stdout)
 
 You can choose any model supported by OpenAI or Anthropic.  Examples:
 ```bash
 # Use the latest GPT-4o model
-python voice2brief.py audio.m4a --model chatgpt-4o-latest
+voice2brief audio.m4a --model chatgpt-4o-latest
 
 # Use the o1 reasoning model
-python voice2brief.py audio.m4a --model o1-2024-12-17
+voice2brief audio.m4a --model o1-2024-12-17
 
 # Use the o3-mini reasoning model
-python voice2brief.py audio.m4a --model o3-mini-2025-01-31
+voice2brief audio.m4a --model o3-mini-2025-01-31
 
 # Use the Claude Sonnet model
-python voice2brief.py audio.m4a --model claude-3-sonnet-20241022
+voice2brief audio.m4a --model claude-3-sonnet-20241022
 ```
 
 Please note that for OpenAI models, you might need a certain tier of account to access more advanced models like o1 or o3.
@@ -107,7 +112,7 @@ tone while removing verbal artifacts and repetitions.]
 
 ## Requirements
 
-- Python 3.10+
+- Python 3.13+
 - OpenAI API key (required)
 - Anthropic API key (optional, only for Claude)
 
